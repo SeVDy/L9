@@ -9,7 +9,7 @@ while True:
     showMenu()
     userItemMenu = getItemMenu()
     match userItemMenu:
-        case 1: # Выбран пункт "Новая игра"
+        case 1:   # Выбран пункт "Новая игра"
 
             # Выбираем количество игроков
             numPlayer = numPlayers()
@@ -19,14 +19,14 @@ while True:
                 showMode()
                 modeGame = getItemMode()
 
-        case 2: # Выбран пункт "Выход"
+        case 2:   # Выбран пункт "Выход"
             break
 
-        case _: # Возвращаемся на начало
+        case _:   # Возвращаемся на начало
             pass
 
     # Условие для начала игры
-    if userItemMenu == 1 and numPlayer > 0 and modeGame in range(1,4):
+    if userItemMenu == 1 and numPlayer > 0 and modeGame in range(1, 4):
         new_generator = Generator()
         playersCard = {}
         playersType = {}
@@ -35,14 +35,14 @@ while True:
         for i in range(numPlayer):
             playersCard.update({i: Card()})
             match modeGame:
-                case 2: # Игрок VS NPC
+                case 2:   # Игрок VS NPC
                     playersType.update({i: Player() if i == 0 else NPC()})
-                case 3: # NPC VS NPC
+                case 3:   # NPC VS NPC
                     playersType.update({i: NPC()})
-                case _: # Игрок VS Игрок
+                case _:   # Игрок VS Игрок
                     playersType.update({i: Player()})
 
-        #тело Игры
+        # тело Игры
         endGame = 0
         while endGame != 1:
 
@@ -53,14 +53,15 @@ while True:
             print(f'Новый бочонок: {tub} (осталось {len(new_generator.poolList)})')
 
             # Печатаем карты игроков
-            for k,v in playersCard.items():
+            k = 0
+            for k, v in playersCard.items():
                 v.printCard(f'Карта игрока №{k +1}')
 
             # Проверяем ответы игроков и модифицируем карты
             for i in range(numPlayer):
 
                 # Задаем вопрос игроку и получаем ответ
-                answPlayers =''
+                answPlayers = ''
                 while 'да' != answPlayers != 'нет':
                     print(f'Игрок №{i +1} Зачеркнуть цифру {tub} (да/нет)?')
                     answPlayers = playersType[i].getAnswer(tub, playersCard[i].getCardInfo)
