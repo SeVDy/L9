@@ -4,17 +4,19 @@ import random
 class Card:
     # Автоматическое действие  при создании новой карты
     def __init__(self):
+
         # Генерируем карточку без пробелов
-        self.cardInfo = []
+        self._cardInfo = []
         for i in range(3): # Строки карточки
-            self.cardInfo.append([])
+            self._cardInfo.append([])
             for j in range(9): # Столбцы карточки
-                self.cardInfo[i].append(j)
+                self._cardInfo[i].append(j)
                 value = 0
-                while value ==0 or y: # проверяем значение на уникальность в карты
+                while value ==0 or y: # проверяем значение на уникальность в карте
                     value = random.randint(1 if j == 0 else j * 10 + 1, j * 10 + 10)
-                    y = any(value in x for x in self.cardInfo)
-                self.cardInfo[i][j] = value
+                    y = any(value in x for x in self._cardInfo)
+                self._cardInfo[i][j] = value
+
         # Делаем 4 пробелa в каждой строке карты
         for i in range(3):
             numSpaceInRaw = 0
@@ -22,26 +24,35 @@ class Card:
                 if numSpaceInRaw != 4:
                     if 9 - j > 4-numSpaceInRaw:
                         if random.randint(0,1) == 1:
-                            self.cardInfo[i][j] = '  '
+                            self._cardInfo[i][j] = '  '
                             numSpaceInRaw += 1
                     else:
-                        self.cardInfo[i][j] = '  '
-# метод модификации карточки
+                        self._cardInfo[i][j] = '  '
+
+    # метод получения информации о карте
+    @property
+    def getCardInfo(self):
+        return self._cardInfo
+
+    # метод модификации карточки
     def modifyCard(self, num):
         inRange = False
         for i in range(3):
-            if num in self.cardInfo[i]:
-                x = self.cardInfo[i].index(num)
-                self.cardInfo[i][x] = '--'
+            if num in self._cardInfo[i]:
+                x = self._cardInfo[i].index(num)
+                self._cardInfo[i][x] = '--'
                 inRange = True
         return inRange
-# метод печать карточки
+
+    # метод печать карточки
     def printCard(self,Player):
         lenSymb = '-' *int((26 - len(Player))/2)
-        print(lenSymb +Player +lenSymb)
-        for raw in self.cardInfo:
+        firstRaw = lenSymb +Player +lenSymb
+        print('\n' + firstRaw)
+        for raw in self._cardInfo:
                 print(' '.join(map(str, raw)))
         print('-' * 26)
+        return firstRaw
 # *********************************************************************************************************************
 class Generator:
     def __init__(self):
@@ -66,18 +77,25 @@ class Player:
                 count += 1
                 if isinstance(j,int):
                     break
+        # Если во всей карточке тип str, игрок победил
         if count == 27:
             complCard = True
         return complCard
-#.......................................................................................................................
-    def answer(self, tub, card):
-        answPlayer = input()
-        return answPlayer
 
+    def getAnswer(self, tub, card):
+        try:
+            answPlayer = input()
+            if 'да' != answPlayer != 'нет':
+                raise ValueError
+        except ValueError:
+            print('Неверный ответ!')
+            answPlayer = ''
+        return answPlayer
+#.......................................................................................................................
 class NPC(Player):
     def __init__(self):
         pass
-    def answer(self, tub, card):
+    def getAnswer(self, tub, card):
         answNPC = 'нет'
         for i in range(3):
             if tub in card[i]:
