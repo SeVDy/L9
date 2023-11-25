@@ -3,6 +3,7 @@ def showMenu():
     print('1. Новая игра')
     print('2. Выход')
 
+
 def getItemMenu():
     item = 0
     try:
@@ -12,6 +13,7 @@ def getItemMenu():
     except ValueError:
         print('Пункт меню выбран не верно!')
     return item
+
 
 def numPlayers():
     numPlayer = 0
@@ -23,6 +25,7 @@ def numPlayers():
         print('Количество игроков указано не верно!')
     return numPlayer
 
+
 def showMode():
     print('Режимы игры:')
     print('1. Игрок - Игрок')
@@ -30,11 +33,12 @@ def showMode():
     print('3. Компьютер - Компьютер')
     print('\n4. Назад в меню')
 
+
 def getItemMode():
     mode = 0
     try:
         mode = int(input('\nВыберите режим игры: '))
-        if mode not in range(1,4):
+        if mode not in range(1, 4):
             raise ValueError
     except ValueError:
         print('Режим указан не верно!')

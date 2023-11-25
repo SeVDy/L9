@@ -1,5 +1,6 @@
 import random
 
+
 # *********************************************************************************************************************
 
 
@@ -9,12 +10,12 @@ class Card:
 
         # Генерируем карточку без пробелов
         self._cardInfo = []
-        for i in range(3):   # Строки карточки
+        for i in range(3):  # Строки карточки
             self._cardInfo.append([])
-            for j in range(9):   # Столбцы карточки
+            for j in range(9):  # Столбцы карточки
                 self._cardInfo[i].append(j)
                 value = 0
-                while value == 0 or y:   # проверяем значение на уникальность в карте
+                while value == 0 or y:  # проверяем значение на уникальность в карте
                     value = random.randint(1 if j == 0 else j * 10 + 1, j * 10 + 10)
                     y = any(value in x for x in self._cardInfo)
                 self._cardInfo[i][j] = value
@@ -24,7 +25,7 @@ class Card:
             num_space_in_raw = 0
             for j in range(9):
                 if num_space_in_raw != 4:
-                    if 9 - j > 4-num_space_in_raw:
+                    if 9 - j > 4 - num_space_in_raw:
                         if random.randint(0, 1) == 1:
                             self._cardInfo[i][j] = '  '
                             num_space_in_raw += 1
@@ -48,13 +49,15 @@ class Card:
 
     # метод печать карточки
     def printCard(self, player):
-        len_symb = '-' * int((26 - len(player))/2)
+        len_symb = '-' * int((26 - len(player)) / 2)
         first_raw = len_symb + player + len_symb
         print('\n' + first_raw)
         for raw in self._cardInfo:
             print(' '.join(map(str, raw)))
         print('-' * 26)
         return first_raw
+
+
 # *********************************************************************************************************************
 
 
@@ -68,6 +71,8 @@ class Generator:
             x = random.randint(1, 91)
         self.poolList.remove(x)
         return x
+
+
 # *********************************************************************************************************************
 
 
@@ -96,6 +101,8 @@ class Player:
             print('Неверный ответ!')
             answ_player = ''
         return answ_player
+
+
 # .......................................................................................................................
 
 

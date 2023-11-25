@@ -9,7 +9,7 @@ while True:
     showMenu()
     userItemMenu = getItemMenu()
     match userItemMenu:
-        case 1:   # Выбран пункт "Новая игра"
+        case 1:  # Выбран пункт "Новая игра"
 
             # Выбираем количество игроков
             numPlayer = numPlayers()
@@ -19,10 +19,10 @@ while True:
                 showMode()
                 modeGame = getItemMode()
 
-        case 2:   # Выбран пункт "Выход"
+        case 2:  # Выбран пункт "Выход"
             break
 
-        case _:   # Возвращаемся на начало
+        case _:  # Возвращаемся на начало
             pass
 
     # Условие для начала игры
@@ -35,11 +35,11 @@ while True:
         for i in range(numPlayer):
             playersCard.update({i: Card()})
             match modeGame:
-                case 2:   # Игрок VS NPC
+                case 2:  # Игрок VS NPC
                     playersType.update({i: Player() if i == 0 else NPC()})
-                case 3:   # NPC VS NPC
+                case 3:  # NPC VS NPC
                     playersType.update({i: NPC()})
-                case _:   # Игрок VS Игрок
+                case _:  # Игрок VS Игрок
                     playersType.update({i: Player()})
 
         # тело Игры
@@ -55,7 +55,7 @@ while True:
             # Печатаем карты игроков
             k = 0
             for k, v in playersCard.items():
-                v.printCard(f'Карта игрока №{k +1}')
+                v.printCard(f'Карта игрока №{k + 1}')
 
             # Проверяем ответы игроков и модифицируем карты
             for i in range(numPlayer):
@@ -63,7 +63,7 @@ while True:
                 # Задаем вопрос игроку и получаем ответ
                 answPlayers = ''
                 while 'да' != answPlayers != 'нет':
-                    print(f'Игрок №{i +1} Зачеркнуть цифру {tub} (да/нет)?')
+                    print(f'Игрок №{i + 1} Зачеркнуть цифру {tub} (да/нет)?')
                     answPlayers = playersType[i].getAnswer(tub, playersCard[i].getCardInfo)
                 resultModif = playersCard[i].modifyCard(tub)
 
@@ -75,7 +75,7 @@ while True:
 
                 # Проверяем победил ли данный игрок
                 if playersType[i].win(playersCard[i].getCardInfo):
-                    print(f'\n\bИгрок №{i +1} победил!')
+                    print(f'\n\bИгрок №{i + 1} победил!')
                     playersCard[i].printCard(f'Карта игрока №{k + 1}')
                     endGame = 1
                     break

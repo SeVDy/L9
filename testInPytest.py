@@ -3,7 +3,6 @@ import pytest
 
 from allClases import Card, Generator, Player, NPC
 
-
 if __name__ == '__main__':
     pass
 
