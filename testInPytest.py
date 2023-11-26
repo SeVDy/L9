@@ -1,5 +1,4 @@
 # Функции проверяем через Pytest
-import pytest
 
 from allClases import Card, Generator, Player, NPC
 
@@ -18,6 +17,7 @@ class TestCard:
         mask = "[[][][]]"
         func = lambda x: str(x).translate(str.maketrans('', '', " ',0123456789-"))
         assert func(self.card.getCardInfo) == mask, 'Неправильная структура!'
+        j = 0
         for i in range(3):
             num_int = 0
             num_str = 0
@@ -29,7 +29,7 @@ class TestCard:
             assert num_str == 4 and num_int == 5, f'Некорректно заполняется строка карты №{j}!'
             assert len(set(self.card.getCardInfo[i])) == 6, f'В строке №{i} есть дубликаты!'
 
-    def testModifyCard(self):
+    def test_modify_card(self):
         flag = False
         for i in range(1, 91):
             self.card.modifyCard(i)
@@ -39,7 +39,7 @@ class TestCard:
                     break
         assert flag, 'Не модифицируется карта!'
 
-    def testPrintCard(self):
+    def test_print_card(self):
         assert self.card.printCard('Игрок') == '-' * 10 + 'Игрок' + '-' * 10, 'Некорректно создается верхняя строка!'
 
 
