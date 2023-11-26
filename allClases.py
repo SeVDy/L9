@@ -15,6 +15,7 @@ class Card:
             for j in range(9):  # Столбцы карточки
                 self._cardInfo[i].append(j)
                 value = 0
+                y = False
                 while value == 0 or y:  # проверяем значение на уникальность в карте
                     value = random.randint(1 if j == 0 else j * 10 + 1, j * 10 + 10)
                     y = any(value in x for x in self._cardInfo)
