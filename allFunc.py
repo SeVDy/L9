@@ -16,14 +16,14 @@ def getItemMenu():
 
 
 def numPlayers():
-    numPlayer = 0
+    num_player = 0
     try:
-        numPlayer = int(input('Укажите количество игроков: '))
-        if numPlayer <= 0:
+        num_player = int(input('Укажите количество игроков: '))
+        if num_player <= 0:
             raise ValueError
     except ValueError:
         print('Количество игроков указано не верно!')
-    return numPlayer
+    return num_player
 
 
 def showMode():

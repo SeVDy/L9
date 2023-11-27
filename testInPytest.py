@@ -54,7 +54,8 @@ class TestCard:
 class TestGenerator:
     def setup(self):
         self._x = [x for x in range(1, 91)]
-        self.generator, self.generator1 = Generator()
+        self.generator = Generator()
+        self.generator1 = Generator()
 
     def teardown(self):
         pass
@@ -84,7 +85,8 @@ class TestGenerator:
 
 class TestPlayer:
     def setup(self):
-        self.player, self.player1 = Player()
+        self.player = Player()
+        self.player1 = Player()
         self.maskWin = [[], [], []]
         for i in range(3):
             for j in range(4):
