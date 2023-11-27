@@ -33,6 +33,24 @@ class Card:
                     else:
                         self._cardInfo[i][j] = '  '
 
+    def __str__(self):
+        print('-' * 26)
+        for raw in self._cardInfo:
+            print(' '.join(map(str, raw)))
+        print('-' * 26)
+        return ''
+
+    def __eq__(self, other):
+        if isinstance(self._cardInfo, list) == isinstance(self._cardInfo, list):
+            count = 0
+            for i in range(3):
+                for j in range(9):
+                    if self.getCardInfo[i] == other.getCardInfo[i]:
+                        count += 1
+            return count == 27
+        else:
+            return False
+
     # метод получения информации о карте
     @property
     def getCardInfo(self):
@@ -65,19 +83,42 @@ class Card:
 class Generator:
     def __init__(self):
         self.poolList = [i for i in range(1, 91)]
+        self.numTub = 0
+
+    def __int__(self):
+        return self.numTub
+
+    def __str__(self):
+        return str(self.numTub)
+
+    def __eq__(self, other):
+        return self.poolList == other.poolList and self.numTub == other.numTub
+
+    def __len__(self):
+        return len(self.poolList)
 
     def mixBag(self):
-        x = 0
-        while x not in self.poolList or self.poolList == []:
-            x = random.randint(1, 91)
-        self.poolList.remove(x)
-        return x
+        while self.numTub not in self.poolList or self.poolList == []:
+            self.numTub = random.randint(1, 91)
+        self.poolList.remove(self.numTub)
+        return self.numTub
 
 
 # *********************************************************************************************************************
 
 
 class Player:
+    def __init__(self):
+        self._typePlayer = 'Player'
+
+    def __str__(self):
+        return self._typePlayer
+
+    def __eq__(self, other):
+        return self.getTypePlayer == other.getTypePlayer
+
+    def getTypePlayer(self):
+        return self._typePlayer
 
     @staticmethod
     def win(player_card):
@@ -108,6 +149,13 @@ class Player:
 
 
 class NPC(Player):
+    def __init__(self):
+        super().__init__()
+        self._typePlayer = 'NPC'
+
+    def __str__(self):
+        return self._typePlayer
+
     def getAnswer(self, tub, card):
         answ_npc = 'нет'
         for i in range(3):

@@ -47,10 +47,10 @@ while True:
         while endGame != 1:
 
             # Встряхиваем сумку с бочонками
-            tub = new_generator.mixBag()
+            new_generator.mixBag()
 
             # Выводим номер выпавшего бочонка и сколько бочонков в мешке
-            print(f'Новый бочонок: {tub} (осталось {len(new_generator.poolList)})')
+            print(f'Новый бочонок: {new_generator} (осталось {len(new_generator)})')
 
             # Печатаем карты игроков
             k = 0
@@ -63,9 +63,9 @@ while True:
                 # Задаем вопрос игроку и получаем ответ
                 answPlayers = ''
                 while 'да' != answPlayers != 'нет':
-                    print(f'Игрок №{i + 1} Зачеркнуть цифру {tub} (да/нет)?')
-                    answPlayers = playersType[i].getAnswer(tub, playersCard[i].getCardInfo)
-                resultModif = playersCard[i].modifyCard(tub)
+                    print(f'Игрок №{i + 1} Зачеркнуть цифру {new_generator} (да/нет)?')
+                    answPlayers = playersType[i].getAnswer(int(new_generator), playersCard[i].getCardInfo)
+                resultModif = playersCard[i].modifyCard(int(new_generator))
 
                 # Проверяем проиграл ли игрок
                 if resultModif != (answPlayers == 'да'):
@@ -76,6 +76,6 @@ while True:
                 # Проверяем победил ли данный игрок
                 if playersType[i].win(playersCard[i].getCardInfo):
                     print(f'\n\bИгрок №{i + 1} победил!')
-                    playersCard[i].printCard(f'Карта игрока №{k + 1}')
+                    print(playersCard[i])
                     endGame = 1
                     break
